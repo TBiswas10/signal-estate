@@ -1,0 +1,62 @@
+name: Open Data Ingestion
+
+on:
+  workflow_dispatch:
+    inputs:
+      pipeline:
+        description: Pipeline to run (abs, metrics, all)
+        required: false
+        default: all
+      as_of_date:
+        description: As-of date for metrics (YYYY-MM-DD)
+        required: false
+        default: ""
+  schedule:
+    - cron: "0 16 * * *" # Daily 02:00 AEST (approx; adjust for DST)
+    - cron: "0 17 * * 6" # Weekly Sunday 03:00 AEST (approx; adjust for DST)
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      DATABASE_URL: ${{ secrets.SUPABASE_DATABASE_URL }}
+      ABS_API_URL: ${{ secrets.ABS_API_URL }}
+      OPEN_METRICS_CSV_URL: ${{ secrets.OPEN_METRICS_CSV_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Resolve pipeline input
+        id: vars
+        shell: bash
+        run: |
+          if [ -n "${{ github.event.inputs.pipeline }}" ]; then
+            echo "pipeline=${{ github.event.inputs.pipeline }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "0 17 * * 6" ]; then
+            echo "pipeline=all" >> "$GITHUB_OUTPUT"
+          else
+            echo "pipeline=abs" >> "$GITHUB_OUTPUT"
+          fi
+
+          if [ -n "${{ github.event.inputs.as_of_date }}" ]; then
+            echo "as_of_date=${{ github.event.inputs.as_of_date }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "as_of_date=$(date +%F)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run ingestion
+        run: |
+          python -m backend.scripts.ingest_open_data_supabase \
+            --pipeline "${{ steps.vars.outputs.pipeline }}" \
+            --as-of-date "${{ steps.vars.outputs.as_of_date }}"

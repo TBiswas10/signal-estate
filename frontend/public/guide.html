@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignalEstate Quick Guide</title>
+    <style>
+      :root {
+        --ink-900: #162523;
+        --ink-700: #2f4a47;
+        --ink-500: #506a68;
+        --surface-0: #ffffff;
+        --surface-50: #f4f9f7;
+        --surface-100: #e7f1ee;
+        --line: #c6d9d4;
+        --brand: #2c7f79;
+        --brand-strong: #1f5d58;
+        --accent: #a57a36;
+        --radius: 14px;
+        --shadow: 0 14px 34px rgba(11, 38, 35, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Manrope", "Segoe UI", sans-serif;
+        color: var(--ink-900);
+        background:
+          radial-gradient(circle at 8% 12%, #88cab91f 0, transparent 32%),
+          radial-gradient(circle at 92% 0, #d6bd9326 0, transparent 40%),
+          linear-gradient(165deg, #f8fcfa 0%, #f2f7f5 46%, #f7faf9 100%);
+      }
+
+      .shell {
+        max-width: 1020px;
+        margin: 0 auto;
+        padding: 28px 18px 56px;
+      }
+
+      .hero {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: linear-gradient(150deg, var(--surface-0), #f7fbf9 62%, #f1f8f5);
+        box-shadow: var(--shadow);
+        padding: 22px;
+      }
+
+      .eyebrow {
+        margin: 0;
+        font-family: "IBM Plex Mono", monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.75rem;
+        color: var(--brand);
+      }
+
+      h1 {
+        margin: 10px 0 0;
+        font-family: "DM Serif Display", Georgia, serif;
+        font-size: clamp(1.9rem, 5vw, 3rem);
+        line-height: 1.05;
+      }
+
+      .hero p {
+        max-width: 760px;
+        color: var(--ink-700);
+      }
+
+      .hero-actions {
+        margin-top: 14px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        padding: 10px 16px;
+        font-weight: 700;
+        text-decoration: none;
+        color: var(--brand-strong);
+        background: var(--surface-0);
+      }
+
+      .btn.primary {
+        background: linear-gradient(130deg, var(--brand-strong), var(--brand));
+        color: white;
+        border-color: transparent;
+      }
+
+      .grid {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface-0);
+        padding: 14px;
+      }
+
+      .card h2 {
+        margin: 0;
+        font-family: "DM Serif Display", Georgia, serif;
+        font-size: 1.35rem;
+      }
+
+      .card p,
+      .card li {
+        color: var(--ink-700);
+      }
+
+      .card ol,
+      .card ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+        display: grid;
+        gap: 7px;
+      }
+
+      .step {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--surface-50);
+        padding: 12px;
+      }
+
+      .step strong {
+        color: var(--ink-900);
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .kbd {
+        border: 1px solid #bcd0ca;
+        border-bottom-width: 2px;
+        border-radius: 6px;
+        padding: 2px 6px;
+        background: var(--surface-0);
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 0.8rem;
+      }
+
+      .footer-tip {
+        margin-top: 12px;
+        border-left: 4px solid var(--accent);
+        background: #fdf5eb;
+        border-radius: 10px;
+        padding: 10px 12px;
+        color: #725126;
+      }
+
+      @media (max-width: 760px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p class="eyebrow">SignalEstate Onboarding</p>
+        <h1>Quick Guide: Where To Click, What To Trust, What To Do Next</h1>
+        <p>
+          Use this page as your operating map. The platform is built for advanced investors, so the fastest approach is to run a fixed workflow each time: scan, underwrite, stress, compare, execute.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="/app">Open App</a>
+          <a class="btn" href="/">Back To Landing</a>
+        </div>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>5-Step Workflow</h2>
+          <div class="step">
+            <strong>1. Market Filter</strong>
+            Start in Trending and Deals to find candidates with high score, yield, and momentum alignment.
+          </div>
+          <div class="step">
+            <strong>2. Underwrite Asset</strong>
+            Select a property, run valuation, then launch research to inspect costs, serviceability, and confidence.
+          </div>
+          <div class="step">
+            <strong>3. Stress Test</strong>
+            Use Calculators and Strategy to run rate and rent downside scenarios before commitment.
+          </div>
+          <div class="step">
+            <strong>4. Portfolio Check</strong>
+            Run portfolio-risk simulation to avoid concentration and unstable drawdown profiles.
+          </div>
+          <div class="step">
+            <strong>5. Execute</strong>
+            Push finalists into Watchlist and Pipeline, then generate a report artifact for decision review.
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Tab Map</h2>
+          <ul>
+            <li><strong>Market:</strong> Trending, Deals, News, Comps for discovery and context.</li>
+            <li><strong>Analysis:</strong> Comparison, Calculators, Monitor, Strategy, Briefs for due diligence.</li>
+            <li><strong>Execution:</strong> Pipeline, Watchlist, Reports for workflow and output.</li>
+          </ul>
+          <h2 style="margin-top: 14px">Speed Keys</h2>
+          <ul>
+            <li><span class="kbd">Ctrl+K</span> opens command palette.</li>
+            <li><span class="kbd">Alt+1..9</span> jumps to tab within current group.</li>
+            <li><span class="kbd">Alt+Arrow</span> cycles tabs quickly.</li>
+            <li><span class="kbd">Alt+G</span> cycles Market/Analysis/Execution groups.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h2>Interpretation Rules</h2>
+          <ol>
+            <li>Treat valuation confidence under 60% as tentative, not decision-grade.</li>
+            <li>Use scenario downside before upside to avoid optimism bias.</li>
+            <li>Cross-check score with liquidity and macro sensitivity before pipeline promotion.</li>
+            <li>Keep assumptions explicit so reports remain auditable.</li>
+          </ol>
+        </article>
+
+        <article class="card">
+          <h2>First Session Checklist</h2>
+          <ol>
+            <li>Pick one suburb from Trending and open one candidate property.</li>
+            <li>Run valuation and research pack.</li>
+            <li>Run one adverse scenario in Calculators.</li>
+            <li>Add one asset to Watchlist and one to Pipeline.</li>
+            <li>Export one report template for review.</li>
+          </ol>
+          <p class="footer-tip">
+            Tip: Repeat this checklist for 3 properties and compare outcomes. Pattern recognition starts appearing quickly.
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
