@@ -103,6 +103,7 @@ alter table if exists public.pipeline_runs add column if not exists records_proc
 alter table if exists public.pipeline_runs add column if not exists records_failed integer;
 alter table if exists public.pipeline_runs add column if not exists freshness_minutes integer;
 alter table if exists public.pipeline_runs add column if not exists error_message text;
+alter table if exists public.pipeline_runs add column if not exists message text;
 
 update public.pipeline_runs set records_processed = 0 where records_processed is null;
 update public.pipeline_runs set records_failed = 0 where records_failed is null;
