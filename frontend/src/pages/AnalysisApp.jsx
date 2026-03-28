@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useMemo, useRef, useState } from "react";
+﻿import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 import { apiGet, apiPost } from "../api";
 
@@ -133,6 +133,15 @@ export default function AnalysisApp() {
     }
   }
 
+  function updateActiveIndicatorsDeferred() {
+    // Layout can shift after async data/font paint in production builds.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        updateActiveIndicators();
+      });
+    });
+  }
+
   useEffect(() => {
     try {
       const savedWatchlist = JSON.parse(localStorage.getItem(STORAGE_KEYS.watchlist) || "[]");
@@ -194,12 +203,35 @@ export default function AnalysisApp() {
     localStorage.setItem(STORAGE_KEYS.liquidGlass, liquidGlass ? "on" : "off");
   }, [STORAGE_KEYS.liquidGlass, liquidGlass]);
 
+  useLayoutEffect(() => {
+    updateActiveIndicatorsDeferred();
+  }, [activeTab, activeGroup]);
+
   useEffect(() => {
-    updateActiveIndicators();
-    const onResize = () => updateActiveIndicators();
+    updateActiveIndicatorsDeferred();
+
+    const onResize = () => updateActiveIndicatorsDeferred();
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [activeTab]);
+
+    let tabResizeObserver;
+    const tabRow = tabRowRef.current;
+    const active = tabButtonRefs.current[activeTab];
+    if (typeof ResizeObserver !== "undefined") {
+      tabResizeObserver = new ResizeObserver(() => updateActiveIndicatorsDeferred());
+      if (tabRow) tabResizeObserver.observe(tabRow);
+      if (active) tabResizeObserver.observe(active);
+    }
+
+    const fonts = document.fonts;
+    if (fonts && typeof fonts.ready?.then === "function") {
+      fonts.ready.then(() => updateActiveIndicatorsDeferred());
+    }
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+      if (tabResizeObserver) tabResizeObserver.disconnect();
+    };
+  }, [activeTab, activeGroup, activeGroupTabs.length, tabMeta]);
 
   useEffect(() => {
     setRecentTabs((prev) => [activeTab, ...prev.filter((item) => item !== activeTab)].slice(0, 6));
