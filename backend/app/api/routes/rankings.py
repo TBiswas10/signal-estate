@@ -20,9 +20,9 @@ def suburb_rankings(
 
     for metric in metrics:
         score, _ = compute_investment_score(
-            annual_growth_pct=metric.annual_growth_pct,
-            rental_yield_pct=metric.rental_yield_pct,
-            days_on_market_avg=metric.days_on_market_avg,
+            annual_growth_pct=metric.annual_growth_pct if metric.annual_growth_pct is not None else 0.0,
+            rental_yield_pct=metric.rental_yield_pct if metric.rental_yield_pct is not None else 0.0,
+            days_on_market_avg=metric.days_on_market_avg if metric.days_on_market_avg is not None else 60,
         )
         rows.append(
             SuburbRankingOut(
@@ -30,9 +30,9 @@ def suburb_rankings(
                 state=metric.state,
                 postcode=metric.postcode,
                 investment_score=score,
-                median_price=metric.median_price,
-                annual_growth_pct=metric.annual_growth_pct,
-                rental_yield_pct=metric.rental_yield_pct,
+                median_price=metric.median_price if metric.median_price is not None else 0.0,
+                annual_growth_pct=metric.annual_growth_pct if metric.annual_growth_pct is not None else 0.0,
+                rental_yield_pct=metric.rental_yield_pct if metric.rental_yield_pct is not None else 0.0,
             )
         )
 

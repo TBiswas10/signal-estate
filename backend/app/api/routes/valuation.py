@@ -50,10 +50,12 @@ def value_property(payload: ValuationRequest, db: Session = Depends(get_db)) -> 
         .first()
     )
 
-    growth = suburb_metric.annual_growth_pct if suburb_metric else 2.5
-    yield_pct = suburb_metric.rental_yield_pct if suburb_metric else 3.6
-    dom = suburb_metric.days_on_market_avg if suburb_metric else 40
-    sales_count = suburb_metric.sales_count if suburb_metric else max(len(comparable_pairs), 1)
+    growth = suburb_metric.annual_growth_pct if suburb_metric and suburb_metric.annual_growth_pct is not None else 2.5
+    yield_pct = suburb_metric.rental_yield_pct if suburb_metric and suburb_metric.rental_yield_pct is not None else 3.6
+    dom = suburb_metric.days_on_market_avg if suburb_metric and suburb_metric.days_on_market_avg is not None else 40
+    sales_count = max(len(comparable_pairs), 1)
+    if suburb_metric and getattr(suburb_metric, "sales_count", None) is not None:
+        sales_count = max(int(suburb_metric.sales_count), 1)
 
     score, score_reasons = compute_investment_score(
         annual_growth_pct=growth,
@@ -106,8 +108,8 @@ def valuation_research(payload: ResearchRequest, db: Session = Depends(get_db)) 
 
     valuation = build_valuation(target=target, comparable_pairs=comparable_pairs)
     suburb_metric = repo.latest_metric_for_postcode(target.postcode)
-    annual_growth_pct = suburb_metric.annual_growth_pct if suburb_metric else 2.5
-    rental_yield_pct = suburb_metric.rental_yield_pct if suburb_metric else 3.6
+    annual_growth_pct = suburb_metric.annual_growth_pct if suburb_metric and suburb_metric.annual_growth_pct is not None else 2.5
+    rental_yield_pct = suburb_metric.rental_yield_pct if suburb_metric and suburb_metric.rental_yield_pct is not None else 3.6
 
     if payload.assumptions:
         assumptions = payload.assumptions.model_dump() if hasattr(payload.assumptions, "model_dump") else payload.assumptions.dict()

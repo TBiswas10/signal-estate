@@ -137,6 +137,20 @@ From repository root:
 python -m backend.scripts.ingest_open_data_supabase --pipeline all --as-of-date 2026-03-27
 ```
 
+### Phase 1 quickstart (recommended)
+
+Use this one command to run open-data ingestion and print row counts used by the app:
+
+```powershell
+python -m backend.scripts.phase1_bootstrap --pipeline all --as-of-date 2026-03-27
+```
+
+Expected output includes counts for:
+
+- `abs_indicators`
+- `suburb_metrics`
+- `pipeline_runs`
+
 Pipelines:
 
 - `abs` -> ABS indicators only
