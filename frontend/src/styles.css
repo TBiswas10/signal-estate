@@ -271,6 +271,7 @@ a {
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--brand-900);
+  animation: hero-slide-up 0.8s ease-out;
 }
 
 .hero-subtext {
@@ -278,6 +279,7 @@ a {
   color: var(--neutral-700);
   font-size: 1.12rem;
   max-width: 700px;
+  animation: hero-slide-up 0.8s ease-out 0.15s both;
 }
 
 .hero-cta-row {
@@ -293,18 +295,21 @@ a {
   border-radius: 999px;
   font-weight: 600;
   transition: transform 160ms ease, box-shadow 180ms ease, filter 180ms ease;
+  animation: button-bob 3s ease-in-out infinite;
 }
 
 .primary-cta {
   background: linear-gradient(120deg, var(--brand-900), var(--brand-700));
   color: var(--neutral-0);
   box-shadow: var(--shadow-soft);
+  animation-delay: 0s;
 }
 
 .secondary-cta {
   border: 1px solid var(--neutral-300);
   color: var(--brand-800);
   background: var(--neutral-0);
+  animation-delay: 0.15s;
 }
 
 .primary-cta:hover,
@@ -368,6 +373,19 @@ a {
   padding: 16px;
   background: var(--neutral-25);
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 220ms ease;
+  perspective: 1000px;
+}
+
+.reveal.in-view .feature-grid article {
+  animation: card-flip-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.feature-grid article:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.feature-grid article:nth-child(3) {
+  animation-delay: 0.2s;
 }
 
 .feature-grid article:hover {
@@ -414,6 +432,19 @@ a {
   gap: 10px;
   background: var(--neutral-25);
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 220ms ease;
+  animation: hero-slide-up 0.5s ease-out backwards;
+}
+
+.suburb-preview-list li:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.suburb-preview-list li:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.suburb-preview-list li:nth-child(3) {
+  animation-delay: 0.2s;
 }
 
 .suburb-preview-list li:hover {
@@ -439,6 +470,7 @@ a {
   font-weight: 700;
   font-family: "IBM Plex Mono", monospace;
   color: var(--brand-700);
+  animation: count-up 1.2s ease-out;
 }
 
 .platform-map {
@@ -530,6 +562,10 @@ a {
   padding: 14px;
   box-shadow: 0 12px 30px #163a3622;
   transition: transform 220ms ease, border-color 220ms ease, box-shadow 260ms ease;
+}
+
+.reveal.in-view .flow-lane {
+  animation: lane-glow-pulse 2s ease-in-out infinite;
 }
 
 .flow-lane:hover {
@@ -694,6 +730,7 @@ a {
   transform: translateY(-3px);
   border-color: #8cb6ae;
   box-shadow: 0 16px 30px #183f3a24;
+  animation: operations-card-lift 0.6s ease-in-out;
 }
 
 .guide-ops-card h3 {
@@ -752,6 +789,12 @@ a {
   border-radius: var(--radius-sm);
   padding: 12px;
   font-size: 0.98rem;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.waitlist-form input:focus {
+  outline: none;
+  animation: input-focus-glow 0.4s ease-out forwards;
 }
 
 .waitlist-form button {
@@ -762,6 +805,12 @@ a {
   color: var(--neutral-0);
   font-weight: 700;
   cursor: pointer;
+  transition: filter 180ms ease, transform 180ms ease;
+}
+
+.waitlist-form button:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: scale(1.02);
 }
 
 .waitlist-form button:disabled {
@@ -781,6 +830,15 @@ a {
 
 .status-error {
   color: var(--danger-700);
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  bottom: 20px;
 }
 
 .app-shell {
@@ -2877,6 +2935,96 @@ button:disabled {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes hero-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes button-bob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes card-flip-in {
+  from {
+    opacity: 0;
+    transform: rotateY(90deg) translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: rotateY(0) translateX(0);
+  }
+}
+
+@keyframes count-up {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes path-flow {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes lane-glow-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 0 1px rgba(47, 133, 127, 0.3),
+      0 12px 28px rgba(13, 35, 34, 0.16);
+  }
+  50% {
+    box-shadow: 
+      0 0 0 1px rgba(47, 133, 127, 0.6),
+      0 12px 28px rgba(13, 35, 34, 0.24),
+      0 0 20px rgba(47, 133, 127, 0.2);
+  }
+}
+
+@keyframes input-focus-glow {
+  from {
+    border-color: var(--neutral-200);
+    box-shadow: none;
+  }
+  to {
+    border-color: var(--brand-500);
+    box-shadow: 0 0 12px rgba(47, 133, 127, 0.3);
+  }
+}
+
+@keyframes confetti-fall {
+  to {
+    transform: translateY(300px) rotateZ(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes operations-card-lift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-8px);
   }
 }
 

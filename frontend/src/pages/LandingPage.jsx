@@ -83,11 +83,35 @@ export default function LandingPage() {
       setStatus("success");
       setMessage(result.message);
       setEmail("");
+      // Trigger confetti animation
+      createConfetti();
     } catch {
       setStatus("error");
       setMessage("Could not submit your request. Try again.");
     } finally {
       setSubmitting(false);
+    }
+  }
+
+  function createConfetti() {
+    const confettiCount = 30;
+    const container = document.querySelector(".waitlist-card");
+    if (!container) return;
+
+    for (let i = 0; i < confettiCount; i++) {
+      const confetti = document.createElement("div");
+      confetti.className = "confetti-piece";
+      confetti.style.left = Math.random() * 100 + "%";
+      confetti.style.backgroundColor = [
+        "var(--brand-500)",
+        "var(--brand-700)",
+        "var(--accent-500)",
+        "var(--brand-300)",
+      ][Math.floor(Math.random() * 4)];
+      confetti.style.animation = `confetti-fall ${2 + Math.random() * 1}s ease-in forwards`;
+      confetti.style.animationDelay = Math.random() * 0.3 + "s";
+      container.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 3500);
     }
   }
 
