@@ -25,7 +25,7 @@ class PropertyRepository:
     def latest_suburb_metrics(self, limit: int = 20) -> list[SuburbMetric]:
         query = (
             select(SuburbMetric)
-            .order_by(desc(SuburbMetric.metric_month), desc(SuburbMetric.annual_growth_pct))
+            .order_by(desc(SuburbMetric.as_of_date), desc(SuburbMetric.annual_growth_pct))
             .limit(limit)
         )
         return list(self.db.scalars(query).all())
@@ -34,7 +34,7 @@ class PropertyRepository:
         query = (
             select(SuburbMetric)
             .where(SuburbMetric.postcode == postcode)
-            .order_by(desc(SuburbMetric.metric_month))
+            .order_by(desc(SuburbMetric.as_of_date))
             .limit(1)
         )
         return self.db.scalars(query).first()

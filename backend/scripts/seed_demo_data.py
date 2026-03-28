@@ -95,7 +95,7 @@ def run() -> None:
                         suburb=suburb,
                         state=state,
                         postcode=postcode,
-                        metric_month=metric_date,
+                        as_of_date=metric_date,
                         median_price=round(median * trend * random.uniform(0.97, 1.03), 2),
                         annual_growth_pct=round(growth + random.uniform(-1.4, 1.5), 2),
                         rental_yield_pct=round(yield_pct + random.uniform(-0.4, 0.5), 2),

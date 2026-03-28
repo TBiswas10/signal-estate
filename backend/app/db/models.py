@@ -58,7 +58,7 @@ class SuburbMetric(Base):
     suburb: Mapped[str] = mapped_column(String(100), index=True)
     state: Mapped[str] = mapped_column(String(10), index=True)
     postcode: Mapped[str] = mapped_column(String(10), index=True)
-    metric_month: Mapped[date] = mapped_column(Date, index=True)
+    as_of_date: Mapped[date] = mapped_column(Date, index=True)
     median_price: Mapped[float] = mapped_column(Float)
     annual_growth_pct: Mapped[float] = mapped_column(Float)
     rental_yield_pct: Mapped[float] = mapped_column(Float)
