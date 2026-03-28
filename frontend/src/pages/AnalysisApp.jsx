@@ -231,7 +231,7 @@ export default function AnalysisApp() {
       window.removeEventListener("resize", onResize);
       if (tabResizeObserver) tabResizeObserver.disconnect();
     };
-  }, [activeTab, activeGroup, activeGroupTabs.length, tabMeta]);
+  }, [activeTab, activeGroup]);
 
   useEffect(() => {
     setRecentTabs((prev) => [activeTab, ...prev.filter((item) => item !== activeTab)].slice(0, 6));
