@@ -100,7 +100,6 @@ def run() -> None:
                         annual_growth_pct=round(growth + random.uniform(-1.4, 1.5), 2),
                         rental_yield_pct=round(yield_pct + random.uniform(-0.4, 0.5), 2),
                         days_on_market_avg=max(14, int(dom + random.randint(-8, 8))),
-                        sales_count=max(55, int(sales + random.randint(-40, 55))),
                     )
                 )
         db.add_all(metrics)

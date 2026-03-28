@@ -63,7 +63,6 @@ class SuburbMetric(Base):
     annual_growth_pct: Mapped[float] = mapped_column(Float)
     rental_yield_pct: Mapped[float] = mapped_column(Float)
     days_on_market_avg: Mapped[int] = mapped_column(Integer)
-    sales_count: Mapped[int] = mapped_column(Integer)
 
 
 class ABSIndicator(Base):
