@@ -1337,6 +1337,8 @@ a {
   position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-auto-rows: minmax(52px, auto);
+  align-items: stretch;
   gap: 9px;
   background: linear-gradient(180deg, #eaf4fb, #e1eff8);
   border: 1px solid #8ebcd65e;
@@ -1399,6 +1401,8 @@ a {
 
 .spa-tab-indicator {
   position: absolute;
+  left: 0;
+  top: auto;
   bottom: 6px;
   height: 3px;
   border-radius: 999px;
@@ -1406,6 +1410,7 @@ a {
   box-shadow: 0 0 14px #40d4ff8c;
   transition: left 220ms ease, width 220ms ease;
   pointer-events: none;
+  z-index: 1;
 }
 
 .spa-tab {
@@ -1430,7 +1435,7 @@ a {
   color: var(--neutral-0);
   border-color: #0f6c9670;
   box-shadow: 0 0 0 1px #8cc5bb5f, 0 10px 26px #2a66614a, 0 0 22px #a7864a3a;
-  transform: translateY(-2px);
+  transform: none;
 }
 
 .spa-tab:hover {
